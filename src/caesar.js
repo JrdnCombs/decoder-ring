@@ -7,7 +7,31 @@ const caesarModule = (function () {
   // you can add any code you want within this function scope
 
   function caesar(input, shift, encode = true) {
-    // your solution code here
+    if (!shift || shift < -25 || shift > 25) {
+      return false;
+    }
+      const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+      let result = "";
+
+      input = input.toLowerCase();
+
+      for (let i = 0; i < input.length; i++) {
+        const char = input[i];
+        if (!alphabet.includes(char)) {
+          result += char;
+          continue;
+        }
+        const direction = encode ? 1 : -1;
+        const charIndex = alphabet.indexOf(char);
+        let shiftedIndex = (charIndex + shift * direction) % 26;
+
+        if (shiftedIndex < 0) {
+          shiftedIndex += 26;
+        }
+        result += alphabet[shiftedIndex];
+    }
+    return result;
   }
 
   return {
