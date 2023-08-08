@@ -10,32 +10,32 @@ const caesarModule = (function () {
     if (!shift || shift < -25 || shift > 25) {
       return false;
     }
-      const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    
+    let result = "";
 
-      let result = "";
-
-      input = input.toLowerCase();
-
-      for (let i = 0; i < input.length; i++) {
-        const char = input[i];
-        if (!alphabet.includes(char)) {
-          result += char;
-          continue;
+    input = input.toLowerCase();
+   
+    for (let i = 0; i < input.length; i++) {
+      char = input[i];
+      asciiNum = char.charCodeAt();
+      if (asciiNum < 97 || asciiNum > 122) {
+        result += char
+      }
+      else {
+      const direction = encode ? 1 : -1;
+      let shifted = asciiNum + (shift * direction);
+        if (shifted < 97) {
+          shifted += 26;
+        } else if (shifted > 122) {
+          shifted -= 26;
         }
-        const direction = encode ? 1 : -1;
-        const charIndex = alphabet.indexOf(char);
-        let shiftedIndex = (charIndex + shift * direction) % 26;
-
-        if (shiftedIndex < 0) {
-          shiftedIndex += 26;
-        }
-        result += alphabet[shiftedIndex];
+        result += String.fromCharCode(shifted);
+      } 
     }
     return result;
   }
-
   return {
-    caesar,
+    caesar: caesar
   };
 })();
 
