@@ -7,7 +7,24 @@ const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
   function substitution(input, alphabet, encode = true) {
-    // your solution code here
+    const original = "abcdefghijklmnopqrstuvwxyz"
+    if (!alphabet || alphabet.length !== 26 || new Set(alphabet).size !== 26) {
+      return false;
+    }
+    input = input.toLowerCase();
+    
+    let result = "";
+    
+    for (let i = 0; i < input.length; i++) {
+      char = input[i];
+      if (char === " ") {
+        result += char
+      } else {
+        const index = encode ? original.indexOf(char) : alphabet.indexOf(char);
+        result += encode ? alphabet[index] : original[index];
+      }
+    }
+    return(result)
   }
 
   return {
